@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id                    String          @id @default(cuid())
+  name                  String
+  phone                 String          @unique
+  mpesa_business_number String?
+  createdAt             DateTime?       @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt             DateTime?       @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  containerSizes        ContainerSize[]
+  dailyReports          DailyReport[]
+  employees             Employee[]
+  owners                Owner[]
+  transactions          Transaction[]
+
+  @@map("businesses")
+}
+
+model Employee {
+  id           String        @id @default(cuid())
+  businessId   String?       @map("business_id")
+  name         String
+  pinCode      String        @map("pin_code")
+  isActive     Boolean?      @default(true) @map("is_active")
+  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamp(6)
+  lastLoginAt  DateTime?     @map("last_login_at") @db.Timestamp(6)
+  business     Business?     @relation(fields: [businessId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transactions Transaction[]
+
+  @@map("employees")
+}
+
+model ContainerSize {
+  id            String        @id @default(cuid())
+  businessId    String?       @map("business_id")
+  sizeLiters    Int           @map("size_liters")
+  pricePerLiter Float?        @default(5.0) @map("price_per_liter")
+  isActive      Boolean?      @default(true) @map("is_active")
+  createdAt     DateTime?     @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt     DateTime?     @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  business      Business?     @relation(fields: [businessId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transactions  Transaction[]
+
+  @@map("container_sizes")
+}
+
+model Transaction {
+  id              String         @id @default(cuid())
+  businessId      String?        @map("business_id")
+  employeeId      String?        @map("employee_id")
+  containerSizeId String?        @map("container_size_id")
+  quantity        Int
+  totalLiters     Int            @map("total_liters")
+  totalPrice      Float          @map("total_price")
+  paymentMethod   String?        @map("payment_method")
+  serviceType     String?        @map("service_type")
+  mpesaReference  String?        @map("mpesa_reference")
+  createdAt       DateTime?      @default(now()) @map("created_at") @db.Timestamp(6)
+  business        Business?      @relation(fields: [businessId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  containerSize   ContainerSize? @relation(fields: [containerSizeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  employee        Employee?      @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("transactions")
+}
+
+model DailyReport {
+  id                String    @id @default(cuid())
+  businessId        String?   @map("business_id")
+  reportDate        DateTime? @map("report_date") @db.Date
+  totalLiters       Int?      @map("total_liters")
+  totalRevenue      Float?    @map("total_revenue")
+  cashTotal         Float?    @map("cash_total")
+  mpesaTotal        Float?    @map("mpesa_total")
+  pickupCount       Int?      @map("pickup_count")
+  deliveryCount     Int?      @map("delivery_count")
+  employeeBreakdown Json?     @map("employee_breakdown") @db.Json
+  createdAt         DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  business          Business? @relation(fields: [businessId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("daily_reports")
+}
+
+model Owner {
+  id          String    @id @default(cuid())
+  businessId  String?   @map("business_id")
+  name        String
+  phone       String    @unique
+  pinCode     String    @map("pin_code")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  lastLoginAt DateTime? @map("last_login_at") @db.Timestamp(6)
+  business    Business? @relation(fields: [businessId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("owners")
+}

@@ -1,0 +1,44 @@
+/* ── WaterFlow Global Styles ── */
+:root {
+  --bg: #0a0f1e;
+  --surface: #111827;
+  --surface2: #1a2233;
+  --surface3: #212d42;
+  --border: #2a3a55;
+  --border2: #3a4d6a;
+  --text: #e8edf5;
+  --text2: #8fa3c0;
+  --text3: #5a7498;
+  --blue: #3b82f6;
+  --blue2: #1d6de5;
+  --teal: #0fb8a0;
+  --teal2: #0d9e89;
+  --amber: #f59e0b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --card-bg: #111827;
+  --card-border: #1e2d45;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }

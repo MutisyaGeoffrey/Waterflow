@@ -1,0 +1,119 @@
+/* ── Layout ── */
+.app-layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 220px; background: var(--surface); border-right: 1px solid var(--card-border);
+  display: flex; flex-direction: column; min-height: 100vh;
+  position: fixed; left: 0; top: 0; z-index: 100;
+}
+.sidebar-logo {
+  padding: 1.5rem 1.2rem 1rem; border-bottom: 1px solid var(--card-border);
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.logo-text { font-size: 18px; font-weight: 600; letter-spacing: -0.5px; color: var(--text); }
+.logo-text span { color: var(--blue); }
+
+.nav { flex: 1; padding: 1rem 0.8rem; }
+.nav-section {
+  font-size: 10px; color: var(--text3); text-transform: uppercase;
+  letter-spacing: 1px; padding: 12px 12px 4px; font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border-radius: 10px; cursor: pointer; color: var(--text2);
+  font-size: 13px; font-weight: 500; margin-bottom: 2px; transition: all 0.2s;
+}
+.nav-item:hover { background: var(--surface2); color: var(--text); }
+.nav-item.active { background: rgba(59,130,246,.15); color: var(--blue); }
+.nav-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+
+.sidebar-footer { padding: 1rem 0.8rem; border-top: 1px solid var(--card-border); }
+.user-chip {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  border-radius: 10px; background: var(--surface2); cursor: pointer;
+}
+.user-info .name { font-size: 12px; font-weight: 600; color: var(--text); }
+.user-info .role { font-size: 11px; color: var(--text3); }
+
+/* ── Main Content ── */
+.main { margin-left: 220px; flex: 1; padding: 1.5rem; min-height: 100vh; }
+
+/* ── Top Bar ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
+}
+.page-title { font-size: 20px; font-weight: 600; color: var(--text); }
+.page-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+
+/* ── Login Page ── */
+.login-wrap {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: var(--bg); position: relative; overflow: hidden;
+}
+.login-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(59,130,246,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.login-card {
+  background: var(--surface); border: 1px solid var(--card-border);
+  border-radius: 20px; padding: 2.5rem; width: 380px; position: relative; z-index: 1;
+}
+.login-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; justify-content: center; }
+.login-logo .logo-text { font-size: 22px; }
+.login-subtitle { text-align: center; color: var(--text2); margin-bottom: 2rem; font-size: 13px; }
+.role-tabs {
+  display: flex; gap: 8px; margin-bottom: 1.5rem;
+  background: var(--surface2); border-radius: 10px; padding: 4px;
+}
+.role-tab {
+  flex: 1; padding: 8px; text-align: center; border-radius: 7px;
+  cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text2); transition: all 0.2s;
+}
+.role-tab.active { background: var(--blue); color: #fff; }
+.error-msg { color: var(--red); font-size: 12px; margin-top: 8px; text-align: center; }
+
+/* ── Employee App ── */
+.emp-app { min-height: 100vh; background: var(--bg); display: flex; flex-direction: column; }
+.emp-header {
+  background: var(--surface); border-bottom: 1px solid var(--card-border);
+  padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between;
+}
+.emp-header h2 { font-size: 16px; font-weight: 600; }
+.emp-body { flex: 1; padding: 1rem; max-width: 480px; margin: 0 auto; width: 100%; }
+.emp-today {
+  background: linear-gradient(135deg, rgba(59,130,246,.15), rgba(15,184,160,.1));
+  border: 1px solid rgba(59,130,246,.2); border-radius: 14px; padding: 1.2rem;
+  margin-bottom: 1rem; display: flex; gap: 1rem;
+}
+.emp-today .stat { flex: 1; text-align: center; }
+.emp-today .stat .val { font-size: 22px; font-weight: 700; font-family: var(--mono); color: var(--blue); }
+.emp-today .stat .lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.recent-title {
+  font-size: 12px; color: var(--text2); text-transform: uppercase;
+  letter-spacing: 0.8px; font-weight: 600; margin-bottom: 0.7rem;
+}
+.txn-item {
+  background: var(--surface); border: 1px solid var(--card-border);
+  border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.txn-left .txn-name { font-size: 13px; font-weight: 500; }
+.txn-left .txn-meta { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.txn-right .amount { font-size: 15px; font-weight: 700; font-family: var(--mono); color: var(--green); }
+.txn-right .method { font-size: 11px; color: var(--text2); text-align: right; margin-top: 2px; }
+.fab {
+  position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px;
+  border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal));
+  border: none; color: #fff; font-size: 26px; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(59,130,246,.4); display: flex;
+  align-items: center; justify-content: center; z-index: 100; transition: all 0.2s;
+}
+.fab:hover { transform: scale(1.05); }
