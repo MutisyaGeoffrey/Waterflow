@@ -1,150 +1,219 @@
-# 💧 WaterFlow – Business Management System
+# 💧 WaterFlow – Smart Business Management for Water Refilling Stations
 
-A complete SaaS platform for water refilling stations in Kenya. Replaces manual notebook tracking with a digital system for sales recording, employee management, container configuration, payment tracking, and real-time analytics.
+[![Render](https://img.shields.io/badge/Render-Backend-46E3B7?logo=render)](https://waterflow-ioty.onrender.com/health)
+[![Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?logo=vercel)](https://waterflow.vercel.app)
+[![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=node.js)](https://nodejs.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-4169E1?logo=postgresql)](https://supabase.com)
+[![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)](https://reactjs.org)
+
+**WaterFlow** is a complete SaaS platform that replaces manual notebook tracking for water refilling stations in Kenya and similar markets. Owners get a real‑time dashboard, employees can record sales in 3 taps (mobile app planned), and the system automatically calculates totals, tracks cash vs M‑Pesa, exports reports, and sends daily summaries via WhatsApp.
+
+> 🚀 **Live demo**  
+> Frontend: [https://waterflow.vercel.app](https://waterflow.vercel.app)  
+> Backend health: [https://waterflow-ioty.onrender.com/health](https://waterflow-ioty.onrender.com/health)  
+> Test owner: `+254711111111` / PIN `0000`
 
 ---
 
-## 🚀 Quick Start
+## 📌 Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Solution & Features](#solution--features)
+- [Tech Stack](#tech-stack)
+- [Architecture Overview](#architecture-overview)
+- [API Endpoints](#api-endpoints)
+- [Getting Started (Local Development)](#getting-started-local-development)
+- [Deployment](#deployment)
+- [Screenshots](#screenshots)
+- [Future Roadmap](#future-roadmap)
+- [License](#license)
+
+---
+
+## ❓ Problem Statement
+
+Water refilling stations in Nairobi and across Africa use paper notebooks to record sales. Employees write down liters sold, money received, and payment method (Cash or M‑Pesa). At the end of the day, owners manually reconcile totals – a process prone to errors, no remote visibility, and no insights into employee performance or popular container sizes.
+
+## 💡 Solution & Features
+
+**WaterFlow** digitises the entire operation:
+
+### For Owners (Web Dashboard)
+- **Live summary** – total liters, revenue, cash vs M‑Pesa split, pickups vs deliveries, transaction count.
+- **Weekly sales chart** – liters and revenue trend.
+- **Payment method pie chart** – instant cash / M‑Pesa breakdown.
+- **Employee leaderboard** – see who sold the most, earns the most revenue.
+- **Container management** – add, edit price, activate/deactivate container sizes (5L, 10L, 20L etc.).
+- **Employee management** – add, edit, reset PIN, activate/deactivate.
+- **Transaction history** – filter by date, employee, payment method, service type; paginated.
+- **Export reports** – CSV, PDF (full history or daily summary).
+- **WhatsApp report** – one‑click generation of a pre‑filled message to send to any number.
+
+### For Employees (Mobile App – Planned)
+- 3‑tap sale recording (select container size → quantity → payment method)
+- Offline support with background sync
+- PIN login (business ID + 4‑digit PIN)
+
+### Security & Reliability
+- bcrypt hashed PINs for owners and employees
+- JWT authentication
+- PostgreSQL with connection pooling (Supabase)
+- Full production deployment on Render (backend) and Vercel (frontend)
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Node.js, Express, Prisma ORM |
+| **Database** | PostgreSQL (Supabase) |
+| **Authentication** | JSON Web Tokens, bcrypt |
+| **Frontend** | React, Chart.js (recharts), CSS modules |
+| **Deployment** | Render (backend), Vercel (frontend) |
+| **File exports** | CSV generation, PDFkit |
+
+---
+
+## 🏗️ Architecture Overview
+Client (React) → Vercel (static hosting)
+│
+▼
+Backend API (Node.js/Express) → Render
+│
+▼
+Supabase PostgreSQL (cloud database)
+
+text
+
+- All API endpoints are secured with JWT (owner) or PIN (employee).
+- Each business has its own isolated data (`businessId` scope).
+- Environment variables control the API base URL (`REACT_APP_API_URL`).
+
+---
+
+## 📡 API Endpoints
+
+Base URL: `https://waterflow-ioty.onrender.com/api`
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/owners/login` | Owner login (phone, pinCode) |
+| POST | `/auth/employee/login` | Employee login (businessId, pinCode) |
+
+### Container Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/containers/:businessId` | List all container sizes |
+| POST | `/containers/` | Create new container |
+| PUT | `/containers/:id` | Update price / status |
+| DELETE | `/containers/:id` | Soft delete |
+
+### Employee Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/employees/:businessId` | List employees with today’s stats |
+| POST | `/employees/` | Create employee |
+| PUT | `/employees/:id` | Update name / status |
+| DELETE | `/employees/:id` | Soft delete |
+| POST | `/employees/:id/reset-pin` | Reset PIN (hashed) |
+
+### Transactions
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/transactions` | Record a sale |
+| GET | `/transactions/today/:businessId` | Today’s summary |
+| GET | `/transactions/history/:businessId` | Paginated, filtered history |
+
+### Reports & Export
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/reports/weekly/:businessId` | Weekly sales trend |
+| GET | `/reports/employees/:businessId` | Employee performance today |
+| POST | `/reports/whatsapp/:businessId` | Generate WhatsApp message & URL |
+| GET | `/export/csv/:businessId` | Download CSV |
+| GET | `/export/pdf/:businessId` | Download PDF report |
+| GET | `/export/daily-summary/:businessId` | Download daily summary PDF |
+
+### Utility
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
+| GET | `/debug/business/:businessId` | Debug info (business, employees, containers) |
+
+> All responses are JSON with `{ success: true, data: ... }` or `{ success: false, error: ... }`.
+
+---
+
+## 🚀 Getting Started (Local Development)
 
 ### Prerequisites
-- Node.js v16 or higher
-- npm v8 or higher
+- Node.js 20.x or 22.x
+- PostgreSQL (local or Supabase)
+- Git
 
-### Install & Run
-
+### 1. Clone the repository
 ```bash
-# 1. Install dependencies
+git clone https://github.com/MutisyaGeoffrey/Waterflow.git
+cd Waterflow
+2. Backend setup
+bash
+cd backend
 npm install
+cp .env.example .env   # edit with your DATABASE_URL, JWT_SECRET
+npx prisma db push
+npm run seed
+npm run dev
+Backend runs at http://localhost:3000.
+Test health: http://localhost:3000/health
 
-# 2. Start the development server
-npm start
+3. Frontend setup
+bash
+cd ../web-dashboard
+npm install
+REACT_APP_API_URL=http://localhost:3000/api npm start
+Dashboard runs at http://localhost:3001.
 
-# 3. Open your browser at http://localhost:3000
-```
+4. Login (local)
+Owner: +254711111111 / 0000
 
----
+Employee: use business ID from seed output (e.g., cmoo1v1oq00001uf2o75r2ro3), PIN 1234
 
-## 🔐 Demo Credentials
+☁️ Deployment
+The project is deployed on:
 
-### Business Owner Login
-- **Phone:** `+254711111111`
-- **PIN:** `0000`
+Backend – Render (Node.js service)
 
-### Employee Login
-- **Business ID:** `biz001`
-- **Employee PINs:** `1234` (Faith), `5678` (Peter), `9999` (Grace)
+Frontend – Vercel (React static hosting)
 
----
+Database – Supabase (PostgreSQL with connection pooler)
 
-## 📁 Project Structure
+Environment variables used in production:
 
-```
-waterflow/
-├── public/
-│   └── index.html              # HTML entry point
-├── src/
-│   ├── data/
-│   │   └── db.js               # Mock database + seed data + helpers
-│   ├── styles/
-│   │   ├── global.css          # CSS variables, base reset
-│   │   ├── components.css      # Buttons, cards, tables, modals, forms
-│   │   └── layout.css          # Sidebar, topbar, login, employee app
-│   ├── components/
-│   │   ├── Sidebar.js          # Navigation sidebar
-│   │   ├── SaleModal.js        # Quick sale entry modal
-│   │   └── Toast.js            # Toast notification
-│   ├── pages/
-│   │   ├── LoginPage.js        # Owner + Employee login with PIN input
-│   │   ├── DashboardPage.js    # KPIs, charts, leaderboard
-│   │   ├── TransactionsPage.js # Filtered transaction history + table
-│   │   ├── EmployeesPage.js    # Employee CRUD + stats cards
-│   │   ├── ContainersPage.js   # Container size + price management
-│   │   ├── ReportsPage.js      # Export + WhatsApp report modal
-│   │   └── EmployeeApp.js      # Mobile-style employee interface
-│   ├── App.js                  # Root component + routing
-│   └── index.js                # React entry point
-└── package.json
-```
+DATABASE_URL (Supabase transaction pooler URL)
 
----
+JWT_SECRET (random string)
 
-## ✅ Features
+NODE_ENV=production
 
-### Owner Dashboard
-- **Dashboard** — Live KPIs (revenue, liters, transactions), weekly trend line chart, Cash vs M-Pesa doughnut chart, employee leaderboard, quick stats
-- **Transactions** — Full history table with filters (payment method, service type, employee), CSV/PDF export
-- **Employees** — Add/deactivate employees, reset PINs, view individual stats
-- **Containers** — Add/edit/deactivate container sizes with dynamic pricing
-- **Reports** — Analytics summary, WhatsApp report generator with pre-filled message + deep link
+REACT_APP_API_URL (Render backend URL)
 
-### Employee App
-- Personal sales dashboard (sales count, liters, revenue)
-- Recent transactions list
-- Quick sale entry: container → quantity → payment method → service type
-- Offline-ready UI (connect to backend for full offline sync)
+📸 Screenshots
+Owner Dashboard	Today’s Summary	Sales Chart
+(Add screenshot)	(Add screenshot)	(Add screenshot)
+Transaction History	WhatsApp Report	Employee Manager
+(Add screenshot)	(Add screenshot)	(Add screenshot)
+You can add screenshots by uploading images to your GitHub repo and linking them.
 
----
+🧭 Future Roadmap
+M‑Pesa API integration – automatic payment verification (per‑station Till/Paybill)
 
-## 🔌 Connecting to a Real Backend
+Employee mobile app – React Native with offline SQLite
 
-The app currently uses a local mock database (`src/data/db.js`). To connect to the Node.js/Express backend:
+Self‑service business registration – onboarding portal
 
-1. Replace functions in `src/data/db.js` with `fetch()` / `axios` API calls
-2. API base URL: set in a `.env` file as `REACT_APP_API_URL=http://localhost:3001`
-3. Use JWT tokens returned from login endpoints; store in `localStorage`
+Low‑stock alerts & inventory forecasting
 
-### Key API endpoints to wire up:
-```
-POST /api/owners/login
-POST /api/auth/employee/login
-GET  /api/transactions/today/:businessId
-POST /api/transactions
-GET  /api/transactions/history/:businessId
-GET  /api/containers/:businessId
-GET  /api/employees/:businessId
-GET  /api/reports/weekly/:businessId
-GET  /api/export/csv/:businessId
-```
-
----
-
-## 🛠 Tech Stack
-
-| Layer      | Technology |
-|------------|-----------|
-| Frontend   | React 18, Chart.js 4, react-chartjs-2 |
-| Fonts      | DM Sans, DM Mono (Google Fonts) |
-| Styling    | Plain CSS with CSS custom properties |
-| State      | React useState (local) |
-| Backend *  | Node.js + Express + PostgreSQL + Prisma |
-| Auth *     | JWT + bcrypt PIN hashing |
-| M-Pesa *   | Safaricom Daraja API (STK Push, C2B) |
-
-`* Backend not included in this package — see master prompt for full backend schema.`
-
----
-
-## 📦 Building for Production
-
-```bash
-npm run build
-```
-
-Output goes to the `build/` folder. Deploy to **Vercel**, **Netlify**, or any static host.
-
----
-
-## 🗺 Roadmap
-
-- [ ] Connect to Node.js/Express REST API
-- [ ] M-Pesa Daraja API integration (STK Push + auto-matching)
-- [ ] React Native employee app with SQLite offline sync
-- [ ] Business self-registration portal
-- [ ] Sales forecasting & low-stock alerts
-- [ ] Customer loyalty tracking
-
----
-
-## 📄 License
-
-MIT — free to use and modify for your business.
+📄 License
+MIT © Geoffrey Mutisya
