@@ -161,7 +161,7 @@ cd Waterflow
 bash
 cd backend
 npm install
-cp .env.example .env   # edit with your DATABASE_URL, JWT_SECRET
+cp .env.example .env  DATABASE_URL="postgresql://postgres.mibhkfloseckcfnwtrod:1Mutisya123@aws-0-eu-west-1.pooler.supabase.com:5432/postgres"
 npx prisma db push
 npm run seed
 npm run dev
