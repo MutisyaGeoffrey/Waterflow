@@ -202,10 +202,10 @@ REACT_APP_API_URL (Render backend URL)
 ## 📸 Screenshots
 
 ### Owner Dashboard – Today’s Summary
-![Dashboard Summary](screenshots/dashboard-summary.png)
+![Dashboard Summary](https://github.com/MutisyaGeoffrey/Waterflow/blob/main/screenshots/dashboard-summary.png?raw=true )
 
 ### Weekly Sales Trend
-![Weekly Sales Chart](screenshots/weekly-chart.png)
+![Weekly Sales Chart](https://github.com/MutisyaGeoffrey/Waterflow/blob/main/screenshots/weekly-chart.png?raw=true)
 
 🧭 Future Roadmap
 M‑Pesa API integration – automatic payment verification (per‑station Till/Paybill)
