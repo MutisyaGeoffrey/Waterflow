@@ -201,10 +201,7 @@ REACT_APP_API_URL (Render backend URL)
 
 📸 Screenshots
 Owner Dashboard	Today’s Summary	Sales Chart
-(Add screenshot)	(Add screenshot)	(Add screenshot)
-Transaction History	WhatsApp Report	Employee Manager
-(Add screenshot)	(Add screenshot)	(Add screenshot)
-You can add screenshots by uploading images to your GitHub repo and linking them.
+![Dashboard Summary](screenshots/dashboard-summary.png)
 
 🧭 Future Roadmap
 M‑Pesa API integration – automatic payment verification (per‑station Till/Paybill)
