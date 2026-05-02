@@ -199,9 +199,13 @@ NODE_ENV=production
 
 REACT_APP_API_URL (Render backend URL)
 
-📸 Screenshots
-Owner Dashboard	Today’s Summary	Sales Chart
+## 📸 Screenshots
+
+### Owner Dashboard – Today’s Summary
 ![Dashboard Summary](screenshots/dashboard-summary.png)
+
+### Weekly Sales Trend
+![Weekly Sales Chart](screenshots/weekly-chart.png)
 
 🧭 Future Roadmap
 M‑Pesa API integration – automatic payment verification (per‑station Till/Paybill)
