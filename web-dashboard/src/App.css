@@ -1,0 +1,377 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #f0f4f8;
+    color: #1e293b;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-box h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #2563eb;
+  }
+  
+  .login-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: #475569;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #475569;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+  }
+  
+  .error {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background: #1d4ed8;
+  }
+  
+  .test-credentials {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .dashboard {
+    min-height: 100vh;
+    background: #f0f4f8;
+  }
+  
+  .header {
+    background: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header h1 {
+    color: #2563eb;
+    font-size: 1.8rem;
+  }
+  
+  .header button {
+    width: auto;
+    padding: 8px 16px;
+    background: #ef4444;
+  }
+  
+  .header button:hover {
+    background: #dc2626;
+  }
+  
+  .business-info {
+    background: white;
+    margin: 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .business-info h2 {
+    font-size: 1.2rem;
+    color: #64748b;
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h3 {
+    margin-bottom: 20px;
+    color: #1e293b;
+    font-size: 1.3rem;
+  }
+  
+  .summary-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .stat-label {
+    color: #64748b;
+    font-weight: 500;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2563eb;
+  }
+  
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .stat-small {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .stat-small span {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  
+  .stat-small strong {
+    font-size: 1.2rem;
+    color: #1e293b;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+  }
+  
+  .quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .quick-actions button {
+    background: #f8fafc;
+    color: #1e293b;
+    border: 2px solid #e2e8f0;
+    font-weight: normal;
+  }
+  
+  .quick-actions button:hover {
+    background: #e2e8f0;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .header {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+    
+    .business-info h2 {
+      font-size: 1rem;
+    }
+  }
+  /* Chart Styles */
+.sales-chart, .payment-chart, .employee-leaderboard {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .sales-chart h4, .payment-chart h4, .employee-leaderboard h4 {
+    margin-bottom: 20px;
+    color: #1e293b;
+    font-size: 1.1rem;
+  }
+  
+  .chart-loading {
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 40px;
+    color: #94a3b8;
+    font-style: italic;
+  }
+  
+  /* Leaderboard Styles */
+  .leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+  
+  .leaderboard-item.top-performer {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 1px solid #f59e0b;
+  }
+  
+  .rank {
+    font-size: 24px;
+    width: 50px;
+    text-align: center;
+  }
+  
+  .employee-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .employee-info strong {
+    color: #1e293b;
+    font-size: 16px;
+  }
+  
+  .employee-pin {
+    font-size: 12px;
+    color: #64748b;
+  }
+  
+  .employee-stats {
+    text-align: right;
+  }
+  
+  .stat-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .stat-badge span:first-child {
+    color: #3b82f6;
+  }
+  
+  .stat-badge span:last-child {
+    color: #10b981;
+  }
+  .card-wide {
+    grid-column: span 2;
+  }
+  
+  @media (max-width: 768px) {
+    .card-wide {
+      grid-column: span 1;
+    }
+  }
+  .chart-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 12px;
+    color: #64748b;
+  }
+  
+  .chart-stats span {
+    font-weight: 500;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+    font-style: italic;
+  }
+  
+  .no-data small {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+  }
