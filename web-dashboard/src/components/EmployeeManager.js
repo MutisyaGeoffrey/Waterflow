@@ -19,6 +19,7 @@ const EmployeeManager = ({ businessId, isOpen, onClose }) => {
     if (isOpen && businessId) {
       fetchEmployees();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, businessId]);
 
   const fetchEmployees = async () => {

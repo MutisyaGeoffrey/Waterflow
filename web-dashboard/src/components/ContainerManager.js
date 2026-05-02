@@ -18,6 +18,7 @@ const ContainerManager = ({ businessId, isOpen, onClose }) => {
     if (isOpen && businessId) {
       fetchContainers();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, businessId]);
 
   const fetchContainers = async () => {

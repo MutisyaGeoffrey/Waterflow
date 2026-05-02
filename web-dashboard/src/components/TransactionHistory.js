@@ -27,12 +27,14 @@ const TransactionHistory = ({ businessId, isOpen, onClose }) => {
     if (isOpen && businessId) {
       fetchEmployees();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, businessId]);
 
   useEffect(() => {
     if (isOpen && businessId) {
       fetchTransactions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, businessId, filters, selectedEmployee, pagination.page]);
 
   const fetchEmployees = async () => {
